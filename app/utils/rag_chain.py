@@ -20,22 +20,33 @@ class RAGChainBuilder:
         self.retriever = self.vector_store.as_retriever(search_kwargs={"k": 10})
         
         self.prompt = ChatPromptTemplate.from_messages(
-            [
-                ("system", """You are an AI assistant. Use the following context to answer the question. If you don't know the answer, 
-                just say that you don't know, don't try to make up an answer. follow the instructions strictly.
-                1. Answer the question in Bengali.
-                2. If the question is not in Bengali, translate it to Bengali and then answer.
-                3. If the question is in Bengali, answer it in Bengali.
-                4. Provide answer not directly from the context. Instead, use the context to infer the answer.
-                5. If the context is not relevant to the question, say that you don't know.
-                6. Do not use any external information.
+    [
+        ("system", """You are an AI assistant. Use the following context to answer the question. If you don't know the answer, 
+        just say that you don't know, don't try to make up an answer. follow the instructions strictly.
+        1. Answer the question in Bengali.
+        2. If the question is not in Bengali, translate it to Bengali and then answer.
+        3. If the question is in Bengali, answer it in Bengali.
+        4. Provide answer not directly from the context. Instead, use the context to infer the answer.
+        5. If the context is not relevant to the question, say that you don't know.
+        6. Do not use any external information.
+        7. Short and precise answer.
+        8. Donot add extra words or info. Just give answer directly from the context.
 
 
+        Examples:
+        ১. অপরিচিতা গল্পটি কার লেখা?
+        রবীন্দ্রনাথ ঠাকুর 
 
-                Context: {context}"""),
-                ("human", "{question}"),
-            ]
-        )
+        ২. অনুপমের মামা অনুপমের চেয়ে কত বছরের বড়?
+        অনুপমের মামা অনুপমের চেয়ে প্রায় ছয় বছরের বড় ছিলেন।
+
+        ৩. অনুপমের মামা বিয়ের জন্য গহনা পরীক্ষা করতে সাথে কাকে নিয়ে গিয়েছিলেন?
+        অনুপমের মামা বিয়ের জন্য গহনা পরীক্ষা করতে সাথে সেকরাকে নিয়ে গিয়েছিলেন।
+
+        Context: {context}"""),
+        ("human", "{question}"),
+    ]
+)
 
     def format_docs(self, docs: List[Document]) -> str:
         """
@@ -67,20 +78,13 @@ class RAGChainBuilder:
                 print(f"Metadata: {doc.metadata}\n")
         return docs
 
-# Example usage (for testing this module)
 if __name__ == "__main__":
     from app.config import Settings
     from app.utils.vector_store import PineconeManager
     from app.utils.data_loader import DocumentProcessor
 
-    # Dummy setup for testing
     config = Settings()
     pinecone_manager = PineconeManager(config)
-    
-    # Ensure some data is in Pinecone for retrieval
-    # For a real run, you'd have ingested data already.
-    # For this test, we'll try to get the vector store,
-    # but actual retrieval depends on data being present.
     try:
         vector_store_instance = pinecone_manager.get_vector_store()
         rag_builder = RAGChainBuilder(vector_store=vector_store_instance, config=config)
