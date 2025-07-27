@@ -860,6 +860,15 @@ wheels = [
 ]
 
 [[package]]
+name = "langdetect"
+version = "1.0.9"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "six" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/0e/72/a3add0e4eec4eb9e2569554f7c70f4a3c27712f40e3284d483e88094cc0e/langdetect-1.0.9.tar.gz", hash = "sha256:cbc1fef89f8d062739774bd51eda3da3274006b3661d199c2655f6b3f6d605a0", size = 981474, upload-time = "2021-05-07T07:54:13.562Z" }
+
+[[package]]
 name = "langsmith"
 version = "0.4.8"
 source = { registry = "https://pypi.org/simple" }
@@ -984,6 +993,7 @@ dependencies = [
     { name = "langchain-community" },
     { name = "langchain-google-genai" },
     { name = "langchain-pinecone" },
+    { name = "langdetect" },
     { name = "pdf2image" },
     { name = "pillow" },
     { name = "pydantic-settings" },
@@ -999,6 +1009,7 @@ requires-dist = [
     { name = "langchain-community", specifier = ">=0.3.27" },
     { name = "langchain-google-genai", specifier = ">=2.1.8" },
     { name = "langchain-pinecone", specifier = ">=0.2.11" },
+    { name = "langdetect", specifier = ">=1.0.9" },
     { name = "pdf2image", specifier = ">=1.17.0" },
     { name = "pillow", specifier = ">=11.3.0" },
     { name = "pydantic-settings", specifier = ">=2.10.1" },

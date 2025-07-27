@@ -6,7 +6,6 @@ load_dotenv()
 class Settings(BaseSettings):
     PINECONE_API_KEY: str
     GEMINI_API_KEY: str
-    COHERE_API_KEY: str
     EMBEDDING_MODEL_NAME: str = "models/gemini-embedding-exp-03-07"
     PINECONE_INDEX_NAME: str = "my-rag-index-2"
     PINECONE_ENVIRONMENT: str = "aws"
